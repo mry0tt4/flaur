@@ -1,80 +1,52 @@
-# Flaur Landing Page
+# Flaur Landing Template
 
-Flaur is an Astro-based landing page for an AI-first investment education product.  
-This project is optimized for static deployment and uses locally bundled image assets in `public/images` for production reliability.
+Flaur is a modern, conversion-focused landing page template with a clean editorial style and strong product storytelling flow.
 
-## Tech Stack
+## Design Overview
 
-- Astro 6
-- Vanilla CSS (`src/styles/global.css`)
-- Static assets served from `public/images`
+The template combines a premium hero section, trust-building social proof, feature storytelling, course/use-case cards, testimonials, and a clear FAQ + CTA sequence.
 
-## Project Structure
+Core design characteristics:
 
-```text
-.
-├── public/
-│   └── images/              # Localized visual assets used by the UI
-├── src/
-│   ├── layouts/
-│   │   └── BaseLayout.astro
-│   ├── pages/
-│   │   └── index.astro
-│   └── styles/
-│       └── global.css
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
-```
+- High-contrast typography with clean spacing rhythm
+- Product-first hero with interactive prompt styling
+- Trust elements (logos, avatars, testimonials) integrated early in the page
+- Modular card sections for content-heavy offerings
+- Soft gradients, layered visuals, and polished iconography
 
-## Getting Started
+## Page Experience
 
-### Prerequisites
+The layout is designed to guide users through a clear narrative:
 
-- Node.js 18+ (recommended: latest LTS)
-- npm
+1. Immediate value proposition
+2. Product capability highlights
+3. Practical use cases or learning tracks
+4. Credibility signals and user confidence
+5. Friction reduction through FAQ
+6. Final conversion prompt
 
-### Install
+## Where This Template Can Be Used
 
-```bash
-npm install
-```
+This template is ideal for:
 
-### Run Locally
+- AI tools and SaaS product launches
+- Fintech, investing, and financial education products
+- EdTech platforms and cohort-based courses
+- Productivity assistants and knowledge products
+- Startup waitlists and early-access campaigns
+- Creator-led digital product landing pages
 
-```bash
-npm run dev
-```
+## Customization Direction
 
-Open `http://localhost:4321`.
+You can quickly adapt this design by changing:
 
-### Build for Production
-
-```bash
-npm run build
-```
-
-Build output is generated in `dist/`.
-
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-## Production Notes
-
-- All images are local files under `public/images` (no runtime Figma MCP dependency).
-- The site is static and suitable for CDN hosting (Netlify, Vercel static output, Cloudflare Pages, S3 + CloudFront, etc.).
-
-## Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Create static production build
-- `npm run preview` - Preview built site locally
+- Brand colors and typography
+- Hero copy and value proposition
+- Feature cards and category tabs
+- Social proof assets and testimonials
+- CTA labels and conversion paths
 
 ## License
 
-This project is licensed under the Apache License 2.0.  
+Licensed under Apache License 2.0.  
 See [LICENSE](./LICENSE).
-
