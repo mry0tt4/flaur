@@ -1,0 +1,46 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'Flaur - AI Investment Landing' } = Astro.props;
+const preloaderLogo = '/images/brand-logo.svg';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="AI-first investment education landing page" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/geist-sans" rel="stylesheet" />
+  </head>
+  <body class="is-loading">
+    <div class="site-preloader" aria-hidden="true">
+      <img class="site-preloader-logo" src={preloaderLogo} alt="" />
+    </div>
+    <slot />
+    <script is:inline>
+      (() => {
+        const preloadQueue = window.__sitePreloadPromises || [];
+        const pageLoadPromise =
+          document.readyState === 'complete'
+            ? Promise.resolve()
+            : new Promise((resolve) => window.addEventListener('load', resolve, { once: true }));
+
+        Promise.allSettled([...preloadQueue, pageLoadPromise]).then(() => {
+          window.requestAnimationFrame(() => {
+            document.body.classList.add('is-ready');
+            document.body.classList.remove('is-loading');
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

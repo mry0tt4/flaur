@@ -1,0 +1,726 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const assets = {
+  navLogo: '/images/brand-logo.svg',
+  heroBg: '/images/hero-background.png',
+  chevron: '/images/ui-chevron-down.svg',
+  sendIcon: '/images/ui-send-icon.svg',
+  heroLogos: [
+    { src: '/images/hero-logo-01.svg', w: 123, h: 40, innerW: 123, innerH: 40 },
+    { src: '/images/hero-logo-02.svg', w: 113, h: 40, innerW: 113, innerH: 40 },
+    { src: '/images/hero-logo-03.svg', w: 74, h: 24, innerW: 74, innerH: 24 },
+    { src: '/images/hero-logo-04.svg', w: 106, h: 40, innerW: 106, innerH: 40 },
+    { src: '/images/hero-logo-05.svg', w: 113, h: 40, innerW: 113, innerH: 40 },
+    { src: '/images/hero-logo-webflow.svg', w: 97, h: 40, innerW: 96.54, innerH: 24.17, isWebflow: true }
+  ],
+  patternMask: '/images/features-pattern-mask.svg',
+  patternShape: '/images/features-pattern-shape.svg',
+  greenShape: '/images/features-dot-green.svg',
+  avatars: [
+    '/images/course-avatar-01.png',
+    '/images/course-avatar-02.png',
+    '/images/course-avatar-03.png',
+    '/images/course-avatar-04.png',
+    '/images/course-avatar-05.png'
+  ],
+  avatarMore: '/images/course-avatar-more.svg',
+  showcaseBg: '/images/showcase-background.png',
+  showcaseChat: '/images/showcase-chat-overlay.png',
+  learnA: '/images/learn-card-01.png',
+  learnB: '/images/learn-card-02.png',
+  learnC: '/images/learn-card-03.png',
+  learnD: '/images/learn-card-04.png',
+  googleLogo: '/images/testimonial-google-logo.svg',
+  star: '/images/testimonial-star.svg',
+  faqPlus: '/images/faq-plus-icon.svg',
+  faqLine: '/images/faq-divider-line.svg'
+};
+
+const features = [
+  {
+    n: '01',
+    t: 'Learn investing with questions',
+    d: 'Just ask what you want in plain English. No finance background needed. Get clear answers that help you understand money and investing step by step.',
+    active: true
+  },
+  {
+    n: '02',
+    t: 'Explore concepts without pressure',
+    d: 'Go from basic terms to real investing ideas in a simple way. Learn at your own pace without feeling overwhelmed by complex financial language.',
+    active: true
+  },
+  {
+    n: '03',
+    t: 'Build confidence before you invest',
+    d: 'Understand risk, returns, and strategy through guided explanations. Make smarter first moves with clarity before putting real money in.',
+    active: false
+  },
+  {
+    n: '04',
+    t: 'Grow your knowledge every day',
+    d: 'Keep asking, learning, and improving with personalized financial guidance. Turn curiosity into confidence with lessons built for early investors.',
+    active: false
+  }
+];
+
+const courseTabs = [
+  { key: 'stock', label: 'Stock' },
+  { key: 'budgeting', label: 'Budgeting' },
+  { key: 'etfs', label: 'ETFs' },
+  { key: 'savings-risk', label: 'Savings/Risk' }
+];
+
+const courseCatalog = {
+  stock: [
+    {
+      title: 'Learn stock basics',
+      desc: 'Understand shares, market value, and investing terms in a simple way.',
+      logos: [
+        { src: '/images/course-logo-01.svg', w: 24, h: 24 },
+        { src: '/images/course-logo-02.svg', w: 31, h: 24 }
+      ]
+    },
+    {
+      title: 'Compare investments',
+      desc: 'Explore stocks, ETFs, and strategies clearly before deciding where to start.',
+      logos: [
+        { src: '/images/course-logo-03.svg', w: 24, h: 24 },
+        { src: '/images/course-logo-04.svg', w: 24, h: 24 }
+      ]
+    },
+    {
+      title: 'Ask money questions',
+      desc: 'Get instant answers about budgeting, risk, and long-term investing.',
+      logos: [
+        { src: '/images/course-logo-05.svg', w: 24, h: 24 },
+        { src: '/images/course-logo-06.svg', w: 36, h: 24 }
+      ]
+    },
+    {
+      title: 'Build investing confidence',
+      desc: 'Learn step by step with clear guidance made for first-time and early investors.',
+      logos: [
+        { src: '/images/course-logo-07.svg', w: 32, h: 24 },
+        { src: '/images/course-logo-08.svg', w: 24, h: 24 }
+      ]
+    },
+    {
+      title: 'Understand market risk',
+      desc: 'Discover how volatility, diversification, and time horizon affect your decisions.',
+      logos: [{ src: '/images/course-logo-09.svg', w: 57, h: 24 }]
+    },
+    {
+      title: 'Create smarter habits',
+      desc: 'Build better money habits with practical lessons on saving and consistency.',
+      logos: [{ src: '/images/course-logo-10.svg', w: 36, h: 24 }]
+    }
+  ],
+  budgeting: [
+    { title: 'Build a monthly budget', desc: 'Set up income, expenses, and savings targets with a simple monthly structure.', logos: [{ src: '/images/course-logo-03.svg', w: 24, h: 24 }] },
+    { title: 'Control lifestyle inflation', desc: 'Learn how to increase savings rate as your income grows without losing flexibility.', logos: [{ src: '/images/course-logo-01.svg', w: 24, h: 24 }] },
+    { title: 'Track spending patterns', desc: 'Understand where your money goes and optimize recurring categories.', logos: [{ src: '/images/course-logo-05.svg', w: 24, h: 24 }] },
+    { title: 'Plan debt payoff', desc: 'Compare avalanche and snowball strategies with timeline projections.', logos: [{ src: '/images/course-logo-04.svg', w: 24, h: 24 }] },
+    { title: 'Create emergency buffers', desc: 'Build emergency fund milestones based on your monthly burn.', logos: [{ src: '/images/course-logo-09.svg', w: 57, h: 24 }] },
+    { title: 'Automate money habits', desc: 'Set automatic transfers for savings and investing consistency.', logos: [{ src: '/images/course-logo-10.svg', w: 36, h: 24 }] }
+  ],
+  etfs: [
+    { title: 'ETF basics', desc: 'Understand index, sector, and thematic ETFs in plain language.', logos: [{ src: '/images/course-logo-06.svg', w: 36, h: 24 }] },
+    { title: 'Expense ratio check', desc: 'Compare ETF costs and long-term drag on returns.', logos: [{ src: '/images/course-logo-01.svg', w: 24, h: 24 }] },
+    { title: 'Diversification planner', desc: 'Balance domestic, global, and fixed-income exposure.', logos: [{ src: '/images/course-logo-05.svg', w: 24, h: 24 }] },
+    { title: 'Risk-adjusted ETF mix', desc: 'Build a portfolio aligned with your time horizon and risk level.', logos: [{ src: '/images/course-logo-07.svg', w: 32, h: 24 }] },
+    { title: 'Rebalancing cadence', desc: 'Learn when and how to rebalance ETF allocations.', logos: [{ src: '/images/course-logo-09.svg', w: 57, h: 24 }] },
+    { title: 'Tax-aware ETF strategy', desc: 'Understand tax lots and holding period impact.', logos: [{ src: '/images/course-logo-10.svg', w: 36, h: 24 }] }
+  ],
+  'savings-risk': [
+    { title: 'Savings ladder setup', desc: 'Split cash between short-term, emergency, and long-term buckets.', logos: [{ src: '/images/course-logo-01.svg', w: 24, h: 24 }] },
+    { title: 'Risk profiling', desc: 'Map your tolerance to suitable allocation ranges.', logos: [{ src: '/images/course-logo-05.svg', w: 24, h: 24 }] },
+    { title: 'Volatility expectations', desc: 'Set realistic return and drawdown expectations before investing.', logos: [{ src: '/images/course-logo-06.svg', w: 36, h: 24 }] },
+    { title: 'Downside protection', desc: 'Learn position sizing and loss control frameworks.', logos: [{ src: '/images/course-logo-07.svg', w: 32, h: 24 }] },
+    { title: 'Goal-based cash planning', desc: 'Align savings strategy with near-term goals and uncertainty.', logos: [{ src: '/images/course-logo-09.svg', w: 57, h: 24 }] },
+    { title: 'Consistency systems', desc: 'Build routines that keep your plan active through market cycles.', logos: [{ src: '/images/course-logo-10.svg', w: 36, h: 24 }] }
+  ]
+};
+
+const testimonials = [
+  ['I used to avoid investing because everything sounded too technical. This made the basics feel simple.', 'Maya Chen'],
+  ['The best part was being able to ask questions without feeling embarrassed. It helped me understand risk.', 'Jordan Paatel'],
+  ['I finally feel like I understand what I am doing with my money. The guidance is clear, practical, and actually useful.', 'Sofia Ramirez'],
+  ['Instead of reading long articles, I could just ask what I needed and get straight answers. It made learning about investing.', 'Ethan Brooks']
+];
+
+const faqs = [
+  [
+    'Is this financial advice?',
+    'No. This platform is designed to help users learn financial concepts, understand investing basics, and explore ideas with more confidence. It supports education, not personalized financial advice.'
+  ],
+  [
+    'Is this made for beginners?',
+    'Yes. It is built for first-time investors and people still learning the basics, with simple language and step-by-step explanations.'
+  ],
+  [
+    'What can I ask the AI?',
+    'You can ask about budgeting, stocks, ETFs, risk, diversification, saving plans, and beginner investing concepts in plain English.'
+  ],
+  [
+    'Can I use it before making my first investment?',
+    'Absolutely. It is designed to help you learn and build confidence before putting real money into the market.'
+  ],
+  [
+    'Why use this instead of reading articles?',
+    'Instead of searching through many long articles, you get direct, personalized answers instantly based on what you want to understand.'
+  ]
+];
+---
+
+<BaseLayout>
+  <main class="page">
+    <header class="hero" data-node-id="0:314">
+      <img class="hero-bg" src={assets.heroBg} alt="" />
+      <div class="hero-gradient"></div>
+
+      <nav class="top-nav" data-node-id="0:762">
+        <div class="nav-left">
+          <div class="brand">
+            <img src={assets.navLogo} alt="" />
+            <span>Flaur</span>
+          </div>
+          <a href="#">Home</a>
+          <a href="#courses">Courses</a>
+          <a href="#features">Features</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="nav-actions">
+          <a href="#">Watch Demo</a>
+          <button>Contact Us</button>
+        </div>
+      </nav>
+
+      <div class="hero-main" data-node-id="0:316">
+        <div class="hero-copy">
+          <span class="badge">Shipping with V2.0</span>
+          <h1>Ask Anything.<br />Money basics, Investing, Wealth building.</h1>
+          <p>Built to help new investors learn faster, ask freely, and make smarter money decisions.</p>
+        </div>
+
+        <form class="prompt-card" id="heroPromptForm" data-node-id="0:324">
+          <label class="sr-only" for="heroPromptInput">Describe your investing question</label>
+          <textarea
+            id="heroPromptInput"
+            class="prompt-input"
+            rows="4"
+            placeholder="Describe your idea, '/' for integrations..."
+            aria-label="Prompt input"
+          ></textarea>
+          <div class="prompt-foot">
+            <label class="drop prompt-select-wrap" for="heroPromptMode">
+              <select id="heroPromptMode" class="prompt-select" aria-label="Assistant mode">
+                <option value="ai-intelligence">AI Intelligence</option>
+                <option value="finance-mentor">Finance Mentor Mode</option>
+                <option value="stock-analyst">Stock AI Analyst Mode</option>
+                <option value="wealth-planner">Wealth Planner Mode</option>
+                <option value="risk-coach">Risk Coach Mode</option>
+              </select>
+              <img src={assets.chevron} alt="" />
+            </label>
+            <div class="right-side">
+              <label class="drop prompt-select-wrap" for="heroPromptModel">
+                <select id="heroPromptModel" class="prompt-select" aria-label="AI model">
+                  <option value="flaur-quant-v2">Flaur Quant v2</option>
+                  <option value="gpt-4.1">GPT-4.1</option>
+                  <option value="gpt-4o">GPT-4o</option>
+                  <option value="claude-sonnet">Claude Sonnet</option>
+                </select>
+                <img src={assets.chevron} alt="" />
+              </label>
+              <button class="send-btn" type="submit" aria-label="Send prompt">
+                <img src={assets.sendIcon} alt="" />
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="hero-logos" data-node-id="0:340">
+        {assets.heroLogos.map((logo) => (
+          <div class={`hero-logo-frame ${logo.isWebflow ? 'webflow-frame' : ''}`} style={`width:${logo.w}px;height:${logo.h}px;`}>
+            <img src={logo.src} alt="" width={logo.innerW} height={logo.innerH} style={`width:${logo.innerW}px;height:${logo.innerH}px;`} />
+          </div>
+        ))}
+      </div>
+    </header>
+
+    <section id="features" class="features-section" data-node-id="0:355">
+      <div class="feature-pattern-wrap">
+        <div class="feature-pattern" style={`mask-image:url(${assets.patternMask}); -webkit-mask-image:url(${assets.patternMask});`}>
+          {Array.from({ length: 24 }).map(() => <img src={assets.patternShape} alt="" />)}
+        </div>
+        <h2>Your money deserve to be grow</h2>
+      </div>
+
+      <div class="feature-list">
+        {features.map((f, index) => (
+          <article class={`feature-item ${index === 0 ? 'is-active' : 'is-inactive'}`} data-feature-index={index}>
+            <div class="feature-title-row">
+              <div class="num-wrap">
+                <img class="feature-dot" src={assets.greenShape} alt="" />
+                <span>{f.n}</span>
+              </div>
+              <h3>{f.t}</h3>
+            </div>
+            <p>{f.d}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section id="courses" class="usecase-section" data-node-id="0:447">
+      <div class="center-copy">
+        <span class="badge dark">Courses</span>
+        <h2>Learn money. Start Investing.</h2>
+        <p>Join thousands of beginners building confidence before making their first investment</p>
+
+        <div class="avatars">
+          {assets.avatars.map((avatar) => <img src={avatar} alt="" />)}
+          <div class="more"><img src={assets.avatarMore} alt="" /><span>100+</span></div>
+        </div>
+      </div>
+
+      <div class="category-tabs">
+        {courseTabs.map((tab, index) => (
+          <button type="button" class={`course-tab ${index === 0 ? 'active' : ''}`} data-course-tab={tab.key}>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      <div class="usecase-grid" data-course-grid>
+        {courseCatalog.stock.map((card) => (
+          <article class="usecase-card">
+            <div class="mini-logos">
+              {card.logos.map((logo) => (
+                <img src={logo.src} alt="" width={logo.w} height={logo.h} style={`max-width:${logo.w}px;height:${logo.h}px;width:auto;`} />
+              ))}
+            </div>
+            <h3>{card.title}</h3>
+            <p>{card.desc}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="showcase" data-node-id="0:554">
+      <article class="show-row">
+        <div class="image-side">
+          <img class="scene" src={assets.showcaseBg} alt="" />
+          <img class="chat" src={assets.showcaseChat} alt="" />
+        </div>
+        <div class="text-side">
+          <h3>Track stock faster and smarter with Flaur</h3>
+          <p>Ask about companies in plain English and instantly see stock snapshots that help beginners understand the market better.</p>
+          <a href="#">Learn more</a>
+        </div>
+      </article>
+
+      <article class="show-row reverse">
+        <div class="text-side">
+          <h3>Meet your AI Investment Guide</h3>
+          <p>A smarter way to learn money, investing, and risk with clear answers made for first-time investors.</p>
+          <a href="#">Learn more</a>
+        </div>
+        <div class="image-side">
+          <img class="scene" src={assets.showcaseBg} alt="" />
+          <img class="chat" src={assets.showcaseChat} alt="" />
+        </div>
+      </article>
+    </section>
+
+    <section class="learn-section" data-node-id="0:571">
+      <div class="learn-head">
+        <h2>Everything you need to learn</h2>
+        <p>A complete toolkit for building confident, long-term money habits and investing skills.</p>
+      </div>
+
+      <div class="learn-grid">
+        <div class="left-learn">
+          <article class="learn-card wide">
+            <div class="text">
+              <h3>All your AIs, unified</h3>
+              <p>Connect leading AI tools into one workspace.</p>
+            </div>
+            <img src={assets.learnA} alt="" />
+          </article>
+
+          <div class="double">
+            <article class="learn-card">
+              <img src={assets.learnB} alt="" />
+              <h3>All your AIs, unified</h3>
+              <p>Connect leading AI tools into one workspace.</p>
+            </article>
+            <article class="learn-card">
+              <img src={assets.learnC} alt="" />
+              <h3>All your AIs, unified</h3>
+              <p>Connect leading AI tools into one workspace.</p>
+            </article>
+          </div>
+        </div>
+
+        <article class="right-photo learn-card">
+          <img src={assets.learnD} alt="" />
+          <h3>All your AIs, unified</h3>
+          <p>Connect leading AI tools into one workspace.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="testimonials" data-node-id="0:597">
+      <div class="testi-head">
+        <h2>Trusted by first-time investors</h2>
+        <p>See how beginners are using AI guidance to understand money and build confidence</p>
+      </div>
+
+      <div class="testi-carousel">
+        <button class="testi-arrow left" type="button" aria-label="Scroll reviews left" hidden>‹</button>
+        <div class="testi-row">
+          {testimonials.map(([body, name]) => (
+            <article class="testi-card">
+              <div class="rating">
+                <img class="g" src={assets.googleLogo} alt="" />
+                <div class="stars">{Array.from({ length: 6 }).map(() => <img src={assets.star} alt="" />)}</div>
+                <span>5.0</span>
+              </div>
+              <div class="review-copy">
+                <p class="body">{body}</p>
+                <p class="name">{name}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <button class="testi-arrow right" type="button" aria-label="Scroll reviews right">›</button>
+      </div>
+    </section>
+
+    <section id="faq" class="faq" data-node-id="0:702">
+      <h2>Questions, answered clearly.</h2>
+      <div class="faq-list">
+        {faqs.map(([q, a], i) => (
+          <article class={`faq-item ${i === 0 ? 'is-open' : ''}`}>
+            <button class="faq-trigger" type="button" aria-expanded={i === 0 ? 'true' : 'false'}>
+              <span>{q}</span>
+              <span class="faq-icon">{i === 0 ? '−' : '+'}</span>
+            </button>
+            <div class="faq-panel">
+              <p>{a}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <footer class="footer" data-node-id="0:736">
+      <div class="brand footer-brand">
+        <img src={assets.navLogo} alt="" />
+        <span>Flaur</span>
+      </div>
+
+      <div class="footer-links">
+        <div>
+          <h4>Product</h4>
+          <a href="#">Changelog</a><a href="#">Roadmap</a><a href="#">Pricing</a><a href="#">Support</a><a href="#">Tools</a><a href="#">Courses</a>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href="#">About us</a><a href="#">Blog</a><a href="#">Affiliate Program</a><a href="#">Contact us</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="#">Privacy</a><a href="#">Terms of Service</a><a href="#">Cookies Policy</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script is:inline define:vars={{ courseCatalog }}>
+    const courseCatalogData =
+      courseCatalog && typeof courseCatalog === 'object' ? courseCatalog : {};
+
+    const preloadImage = (src) =>
+      new Promise((resolve) => {
+        const image = new Image();
+        image.onload = resolve;
+        image.onerror = resolve;
+        image.src = src;
+      });
+
+    const registerPreloadPromise = (promise) => {
+      window.__sitePreloadPromises = window.__sitePreloadPromises || [];
+      window.__sitePreloadPromises.push(promise);
+    };
+
+    const preloadCourseTabImages = () => {
+      const sources = Object.values(courseCatalogData)
+        .flatMap((cards) => cards || [])
+        .flatMap((card) => (card?.logos || []).map((logo) => logo.src))
+        .filter(Boolean);
+      const uniqueSources = [...new Set(sources)];
+      if (!uniqueSources.length) return Promise.resolve();
+      return Promise.all(uniqueSources.map((src) => preloadImage(src)));
+    };
+
+    registerPreloadPromise(preloadCourseTabImages());
+
+    const courseGrid = document.querySelector('[data-course-grid]');
+    const courseTabButtons = Array.from(document.querySelectorAll('[data-course-tab]'));
+
+    const renderCourseCards = (cards = []) => {
+      if (!courseGrid) return;
+
+      courseGrid.innerHTML = cards
+        .map(
+          (card) => `
+            <article class="usecase-card">
+              <div class="mini-logos">
+                ${card.logos
+                  .map(
+                    (logo) =>
+                      `<img src="${logo.src}" alt="" width="${logo.w}" height="${logo.h}" style="max-width:${logo.w}px;height:${logo.h}px;width:auto;" />`
+                  )
+                  .join('')}
+              </div>
+              <h3>${card.title}</h3>
+              <p>${card.desc}</p>
+            </article>
+          `
+        )
+        .join('');
+    };
+
+    if (courseGrid && courseTabButtons.length) {
+      courseTabButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const key = button.getAttribute('data-course-tab');
+          if (!key || !courseCatalogData[key]) return;
+
+          courseTabButtons.forEach((tab) => tab.classList.toggle('active', tab === button));
+          renderCourseCards(courseCatalogData[key]);
+        });
+      });
+    }
+
+    const topNav = document.querySelector('.top-nav');
+    if (topNav) {
+      const updateNavState = () => {
+        topNav.classList.toggle('nav-scrolled', window.scrollY > 36);
+      };
+      updateNavState();
+      window.addEventListener('scroll', updateNavState, { passive: true });
+      window.addEventListener('resize', updateNavState);
+    }
+
+    const featureSection = document.querySelector('.features-section');
+    const items = Array.from(document.querySelectorAll('.feature-list .feature-item'));
+
+    if (featureSection && items.length) {
+      const update = () => {
+        const rect = featureSection.getBoundingClientRect();
+        const viewport = window.innerHeight || 1;
+        const start = viewport * 0.85;
+        const total = rect.height + viewport * 0.5;
+        const passed = Math.max(0, start - rect.top);
+        const progress = Math.min(1, passed / Math.max(1, total));
+        const activeCount = Math.max(1, Math.min(items.length, Math.floor(progress * items.length) + 1));
+
+        items.forEach((item, i) => {
+          item.classList.toggle('is-active', i < activeCount);
+          item.classList.toggle('is-inactive', i >= activeCount);
+        });
+      };
+
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+    }
+
+    const faqItems = Array.from(document.querySelectorAll('.faq-item'));
+    if (faqItems.length) {
+      faqItems.forEach((item) => {
+        const trigger = item.querySelector('.faq-trigger');
+        const panel = item.querySelector('.faq-panel');
+        const icon = item.querySelector('.faq-icon');
+        if (!trigger || !panel || !icon) return;
+
+        trigger.addEventListener('click', () => {
+          faqItems.forEach((other) => {
+            const otherTrigger = other.querySelector('.faq-trigger');
+            const otherPanel = other.querySelector('.faq-panel');
+            const otherIcon = other.querySelector('.faq-icon');
+            if (!otherTrigger || !otherPanel || !otherIcon) return;
+
+            const shouldOpen = other === item && !other.classList.contains('is-open');
+            other.classList.toggle('is-open', shouldOpen);
+            otherTrigger.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+            otherPanel.style.maxHeight = shouldOpen ? otherPanel.scrollHeight + 'px' : '0px';
+            otherIcon.textContent = shouldOpen ? '−' : '+';
+          });
+        });
+      });
+
+      const firstPanel = faqItems[0]?.querySelector('.faq-panel');
+      if (firstPanel) firstPanel.style.maxHeight = firstPanel.scrollHeight + 'px';
+    }
+
+    const carousel = document.querySelector('.testi-carousel');
+    const row = carousel?.querySelector('.testi-row');
+    const leftArrow = carousel?.querySelector('.testi-arrow.left');
+    const rightArrow = carousel?.querySelector('.testi-arrow.right');
+    const firstCard = row?.querySelector('.testi-card');
+
+    if (carousel && row && leftArrow && rightArrow && firstCard) {
+      const step = firstCard.getBoundingClientRect().width + 24;
+
+      const updateArrows = () => {
+        const max = row.scrollWidth - row.clientWidth;
+        const x = row.scrollLeft;
+        leftArrow.hidden = x <= 2;
+        rightArrow.hidden = x >= max - 2 || max <= 0;
+      };
+
+      leftArrow.addEventListener('click', () => row.scrollBy({ left: -step, behavior: 'smooth' }));
+      rightArrow.addEventListener('click', () => row.scrollBy({ left: step, behavior: 'smooth' }));
+      row.addEventListener('scroll', updateArrows, { passive: true });
+      window.addEventListener('resize', updateArrows);
+      updateArrows();
+    }
+
+    const promptForm = document.querySelector('#heroPromptForm');
+    const promptInput = document.querySelector('#heroPromptInput');
+    const promptMode = document.querySelector('#heroPromptMode');
+    const promptModel = document.querySelector('#heroPromptModel');
+
+    const modeLabels = {
+      'ai-intelligence': 'AI Intelligence',
+      'finance-mentor': 'Finance Mentor',
+      'stock-analyst': 'Stock AI Analyst',
+      'wealth-planner': 'Wealth Planner',
+      'risk-coach': 'Risk Coach'
+    };
+
+    const cannedResponses = {
+      'ai-intelligence': 'Quick breakdown ready: I can explain terms, summarize options, and give a simple action plan for your next step.',
+      'finance-mentor': 'Mentor plan ready: I recommend starting with emergency fund coverage, debt priority, then a monthly investment habit.',
+      'stock-analyst': 'Analyst mode: I can compare valuation, growth trend, and risk profile before you consider any stock entry.',
+      'wealth-planner': 'Wealth plan draft: I can map your goals to timelines, asset allocation, and monthly contribution targets.',
+      'risk-coach': 'Risk coach: I can estimate downside scenarios and suggest position sizing to protect long-term capital.'
+    };
+
+    if (promptForm && promptInput && promptMode && promptModel) {
+      const openSelect = (selectElement) => {
+        if (!selectElement) return;
+        if (typeof selectElement.showPicker === 'function') {
+          selectElement.showPicker();
+          return;
+        }
+        selectElement.focus();
+        selectElement.click();
+      };
+
+      const selectWraps = Array.from(promptForm.querySelectorAll('.prompt-select-wrap'));
+      selectWraps.forEach((wrap) => {
+        wrap.addEventListener('mousedown', (event) => {
+          const selectElement = wrap.querySelector('select');
+          if (!selectElement || event.target === selectElement) return;
+          event.preventDefault();
+          openSelect(selectElement);
+        });
+      });
+
+      promptForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const text = promptInput.value.trim();
+        const sendBtn = promptForm.querySelector('.send-btn');
+        const sendIcon = sendBtn?.querySelector('img');
+
+        if (!text) {
+          promptInput.focus();
+          return;
+        }
+
+        const mode = promptMode.value;
+        const model = promptModel.value;
+        const modeName = modeLabels[mode] || 'Assistant';
+        const shortText = text.length > 120 ? text.slice(0, 120) + '…' : text;
+        const response = cannedResponses[mode] || cannedResponses['ai-intelligence'];
+
+        if (sendBtn && sendIcon) {
+          sendBtn.style.background = '#2a2a2a';
+          sendIcon.style.opacity = '0.65';
+        }
+
+        promptInput.value = '';
+        promptInput.placeholder = `${modeName} (${model}) • "${shortText}" • ${response}`;
+
+        window.setTimeout(() => {
+          promptInput.placeholder = "Describe your idea, '/' for integrations...";
+          if (sendBtn && sendIcon) {
+            sendBtn.style.background = '#1c1c1c';
+            sendIcon.style.opacity = '1';
+          }
+        }, 2200);
+      });
+    }
+  </script>
+
+  <script type="module" is:inline>
+    const motionSetup = async () => {
+      try {
+        const { animate, inView, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@12.23.24/+esm');
+
+        animate('.top-nav', { opacity: [0, 1] }, { duration: 0.35, easing: 'ease-out' });
+        animate('.hero-copy', { opacity: [0, 1], y: [18, 0] }, { duration: 0.55, easing: 'ease-out' });
+        animate('.prompt-card', { opacity: [0, 1], y: [20, 0] }, { duration: 0.55, delay: 0.08, easing: 'ease-out' });
+
+        inView(
+          '.feature-item, .usecase-card, .show-row, .learn-card, .testi-card, .faq-item, .footer',
+          (element) => {
+            animate(element, { y: [14, 0] }, { duration: 0.4, easing: 'ease-out' });
+          },
+          { margin: '0px 0px -15% 0px' }
+        );
+
+        const hoverTargets = document.querySelectorAll(
+          '.usecase-card, .learn-card, .testi-card, .prompt-card, .show-row, .faq-trigger, .nav-actions button'
+        );
+        hoverTargets.forEach((el) => {
+          let isHovered = false;
+
+          el.addEventListener('mouseenter', () => {
+            isHovered = true;
+            animate(el, { scale: 1.01 }, { duration: 0.22, easing: 'ease-out' });
+          });
+
+          el.addEventListener('mouseleave', () => {
+            isHovered = false;
+            animate(el, { scale: 1 }, { duration: 0.22, easing: 'ease-out' });
+          });
+
+          el.addEventListener('mousedown', () => {
+            animate(el, { scale: isHovered ? 0.995 : 0.99 }, { duration: 0.12, easing: 'ease-out' });
+          });
+
+          el.addEventListener('mouseup', () => {
+            animate(el, { scale: isHovered ? 1.01 : 1 }, { duration: 0.14, easing: 'ease-out' });
+          });
+        });
+
+        const logoNodes = Array.from(document.querySelectorAll('.hero-logo-frame'));
+        if (logoNodes.length) {
+          animate(logoNodes, { opacity: [0, 1], y: [10, 0] }, { duration: 0.4, delay: stagger(0.05), easing: 'ease-out' });
+        }
+      } catch (error) {
+        console.warn('Motion init skipped:', error);
+      }
+    };
+
+    motionSetup();
+  </script>
+</BaseLayout>
